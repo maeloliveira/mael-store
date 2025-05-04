@@ -1,47 +1,47 @@
 package com.bookstore.mael.store.service
 
-import com.bookstore.mael.store.CustomerModel
+import com.bookstore.mael.store.exception.CustomerNotFoundException
+import com.bookstore.mael.store.model.CustomerModel
+import com.bookstore.mael.store.repository.CustomerRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerService {
-
-    val customers = mutableListOf<CustomerModel>()
+class CustomerService(
+    val customerRepository: CustomerRepository
+) {
 
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
-            return customers.filter { it.name.contains(name, ignoreCase = true) }
+           return customerRepository.findByName(it)
         }
-        return customers
+
+        return customerRepository.findAll().toList()
     }
 
     fun createCustomer(customer: CustomerModel) {
 
-        val id = if (customers.isEmpty()) {
-            1
-        } else {
-            customers.last().id!!.toInt() + 1
-        }.toString()
-
-        customer.id = id
-
-        customers.add(customer)
+        customerRepository.save(customer)
     }
 
-    fun getCustomer(id: String): CustomerModel {
-        return customers.first { it.id == id }
+    fun getCustomer(id: Int): CustomerModel {
+        return customerRepository.findById(id).orElseThrow()
     }
 
-    fun updateCustomer(customer: CustomerModel)  {
-        customers.first { it.id == customer.id }.let {
-            it.name = customer.name
-            it.email = customer.email
+    fun updateCustomer(customer: CustomerModel) {
+        if (!customerRepository.existsById(customer.id!!)) {
+            throw CustomerNotFoundException(customer.id!!)
         }
 
+        customerRepository.save(customer)
     }
 
-    fun deleteCustomer(id: String) {
-        customers.removeIf { it.id == id }
+    fun deleteCustomer(id: Int) {
+
+        if (!customerRepository.existsById(id)) {
+            throw CustomerNotFoundException(id)
+        }
+
+        customerRepository.deleteById(id)
     }
 
 }

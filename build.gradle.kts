@@ -1,6 +1,7 @@
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
+	kotlin("plugin.jpa") version "1.4.30"
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
 }
@@ -25,7 +26,16 @@ repositories {
 }
 
 dependencies {
+	//#To use PostgreSQL
 //	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+//	implementation("org.postgresql:postgresql:42.7.2")
+
+	//#To use Mysql
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("mysql:mysql-connector-java:8.0.31")
+
+	runtimeOnly("mysql:mysql-connector-java")
+
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

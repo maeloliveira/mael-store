@@ -1,6 +1,6 @@
 package com.bookstore.mael.store.controller
 
-import com.bookstore.mael.store.CustomerModel
+import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.controller.request.PostCustomerRequest
 import com.bookstore.mael.store.controller.request.PutCustomerRequest
 import com.bookstore.mael.store.extension.toCustomerModel
@@ -36,19 +36,19 @@ class CustomerController (
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: String): CustomerModel {
+    fun getCustomer(@PathVariable id: Int): CustomerModel {
        return customerService.getCustomer(id)
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updateCustomer(@PathVariable id: String, @RequestBody customer: PutCustomerRequest) {
+    fun updateCustomer(@PathVariable id: Int, @RequestBody customer: PutCustomerRequest) {
        customerService.updateCustomer(customer.toCustomerModel(id))
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteCustomer(@PathVariable id: String) {
+    fun deleteCustomer(@PathVariable id: Int) {
         customerService.deleteCustomer(id)
     }
 
