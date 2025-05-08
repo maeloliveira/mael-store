@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: maelstore
+  ##to use PostgreSQL
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/mael-store
+#    user: postgres
+#    password: postgres
+
+    ##to use MySql
+  datasource:
+    url: jdbc:mysql://localhost:3306/mael_store?createDatabaseIfNotExist=true
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+  flyway:
+    schemas: mael_store
