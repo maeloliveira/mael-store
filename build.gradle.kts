@@ -33,7 +33,7 @@ dependencies {
 	//#To use Mysql
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("mysql:mysql-connector-java:8.0.31")
-	implementation ("org.flywaydb:flyway-core:9.22.3")
+//	implementation ("org.flywaydb:flyway-core:9.22.3")
 	runtimeOnly("mysql:mysql-connector-java")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
