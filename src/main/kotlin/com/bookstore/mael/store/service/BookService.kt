@@ -37,6 +37,10 @@ class BookService (
         bookRepository.save(book)
     }
 
+    fun findById(id: Int): BookModel{
+        return bookRepository.findById(id).orElseThrow()
+    }
+
 
 
 }

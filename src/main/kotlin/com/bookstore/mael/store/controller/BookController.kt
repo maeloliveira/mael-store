@@ -47,8 +47,11 @@ class BookController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updadeBook(@PathVariable id: Int, @RequestBody book: PutBookRequest)=
-        bookService.update(book.toBookModel(id))
+    fun updade(@PathVariable id: Int, @RequestBody book: PutBookRequest) {
+        val bookSaved = bookService.findById(id)
+
+        bookService.update(book.toBookModel(bookSaved))
+    }
 
 
 }
