@@ -37,7 +37,7 @@ class CustomerController (
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): CustomerModel {
-       return customerService.getCustomerById(id)
+       return customerService.findById(id)
     }
 
     @PutMapping("/{id}")
