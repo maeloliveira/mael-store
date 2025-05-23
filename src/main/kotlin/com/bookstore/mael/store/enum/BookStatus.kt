@@ -4,6 +4,6 @@ enum class BookStatus{
     ATIVO,
     VENDIDO,
     CANCELADO,
-    DELETATO
+    DELETADO
 
 }

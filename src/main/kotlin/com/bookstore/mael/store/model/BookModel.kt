@@ -13,23 +13,39 @@ import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
 
 @Entity(name = "book")
-data class BookModel (
+data class BookModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id : Int? = null,
+    var id: Int? = null,
 
     @Column(name = "name")
-    var name : String,
+    var name: String,
 
     @Column(name = "price")
-    var price : BigDecimal,
-
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    var status : BookStatus? =null,
+    var price: BigDecimal,
 
     @ManyToOne
     @JoinColumn
     var customer: CustomerModel? = null
 
-)
+) {
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    var status: BookStatus? = null
+        set(value) {
+            if (field == BookStatus.DELETADO || field == BookStatus.CANCELADO)
+                throw Exception("Erro ao processar requisição com status: ${field}")
+
+            field = value
+        }
+
+    constructor(
+        id: Int? = null,
+        name: String,
+        price: BigDecimal,
+        customer: CustomerModel? = null,
+        status: BookStatus?
+    ) : this(id, name, price, customer) {
+        this.status = status
+    }
+}
