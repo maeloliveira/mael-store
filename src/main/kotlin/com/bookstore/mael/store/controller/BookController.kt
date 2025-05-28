@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("book")
+@RequestMapping("books")
 class BookController(
     val customerService: CustomerService,
     val bookService: BookService
@@ -34,6 +34,11 @@ class BookController(
     @GetMapping
     fun findAll(): List<BookModel> =
         bookService.findAll()
+
+    @GetMapping("{id}")
+    fun getBookById(@PathVariable id: Int): BookModel{
+        return bookService.findById(id)
+    }
 
 
     @GetMapping("/active")

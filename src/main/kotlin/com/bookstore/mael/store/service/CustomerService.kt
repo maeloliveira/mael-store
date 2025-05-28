@@ -1,5 +1,6 @@
 package com.bookstore.mael.store.service
 
+import com.bookstore.mael.store.enum.CustomerStatus
 import com.bookstore.mael.store.exception.CustomerNotFoundException
 import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.repository.CustomerRepository
@@ -38,9 +39,10 @@ class CustomerService(
 
     fun deleteCustomer(id: Int) {
 
-        var customer = findById(id)
+        val customer = findById(id)
         bookService.deleteByCustomer(customer)
-        customerRepository.deleteById(id)
+        customer.status = CustomerStatus.INATIVO
+        customerRepository.save(customer)
     }
 
 }
