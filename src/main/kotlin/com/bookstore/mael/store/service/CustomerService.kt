@@ -4,6 +4,7 @@ import com.bookstore.mael.store.enum.CustomerStatus
 import com.bookstore.mael.store.exception.CustomerNotFoundException
 import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.repository.CustomerRepository
+import mu.KotlinLogging
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,6 +12,8 @@ class CustomerService(
     val customerRepository: CustomerRepository,
     val bookService: BookService
 ) {
+
+    private val logger = KotlinLogging.logger {}
 
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
@@ -43,6 +46,7 @@ class CustomerService(
         bookService.deleteByCustomer(customer)
         customer.status = CustomerStatus.INATIVO
         customerRepository.save(customer)
+        logger.info{"Customer ${customer.name} was completed deleted"}
     }
 
 }
