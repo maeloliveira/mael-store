@@ -5,10 +5,11 @@ import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.controller.request.PostCustomerRequest
 import com.bookstore.mael.store.controller.request.PutBookRequest
 import com.bookstore.mael.store.controller.request.PutCustomerRequest
+import com.bookstore.mael.store.controller.response.BookResponse
+import com.bookstore.mael.store.controller.response.CustomerResponse
 import com.bookstore.mael.store.enum.BookStatus
 import com.bookstore.mael.store.enum.CustomerStatus
 import com.bookstore.mael.store.model.BookModel
-import lombok.`var`
 
 fun PostCustomerRequest.toCustomerModel() : CustomerModel {
     return CustomerModel(name = this.name, email = this.email, status = CustomerStatus.ATIVO)
@@ -33,5 +34,24 @@ fun PutBookRequest.toBookModel(previousValue: BookModel): BookModel{
         price = this.price ?: previousValue.price,
         status = previousValue.status,
         customer = previousValue.customer
+    )
+}
+
+fun CustomerModel.toResponse() : CustomerResponse {
+    return CustomerResponse(
+        id = this.id,
+        name = this.name,
+        email = this.email,
+        status = this.status
+    )
+}
+
+fun BookModel.toResponse() : BookResponse {
+    return BookResponse(
+        id = this.id,
+        name = this.name,
+        price = this.price,
+        customer = this.customer,
+        status = this.status
     )
 }

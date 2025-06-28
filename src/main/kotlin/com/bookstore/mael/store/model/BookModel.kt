@@ -29,8 +29,8 @@ data class BookModel(
     var customer: CustomerModel? = null
 
 ) {
-    @Column(name = "status")
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     var status: BookStatus? = null
         set(value) {
             if (field == BookStatus.DELETADO || field == BookStatus.CANCELADO)
