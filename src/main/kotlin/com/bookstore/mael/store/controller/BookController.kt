@@ -7,6 +7,9 @@ import com.bookstore.mael.store.extension.toBookModel
 import com.bookstore.mael.store.extension.toResponse
 import com.bookstore.mael.store.service.BookService
 import com.bookstore.mael.store.service.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -33,8 +36,8 @@ class BookController(
     }
 
     @GetMapping
-    fun findAll(): List<BookResponse> =
-        bookService.findAll().map { it.toResponse() }
+    fun findAll(@PageableDefault(page= 0, size=10) pageable : Pageable): Page<BookResponse> =
+        bookService.findAll(pageable).map { it.toResponse() }
 
     @GetMapping("{id}")
     fun getBookById(@PathVariable id: Int): BookResponse{
@@ -42,8 +45,8 @@ class BookController(
     }
 
     @GetMapping("/active")
-    fun findActives(): List<BookResponse> =
-        bookService.findActives().map { it.toResponse() }
+    fun findActives(@PageableDefault(page=0, size=10) pageable: Pageable): Page<BookResponse> =
+        bookService.findActives(pageable).map { it.toResponse() }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

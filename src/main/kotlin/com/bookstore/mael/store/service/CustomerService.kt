@@ -5,6 +5,8 @@ import com.bookstore.mael.store.exception.CustomerNotFoundException
 import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.repository.CustomerRepository
 import mu.KotlinLogging
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,12 +17,12 @@ class CustomerService(
 
     private val logger = KotlinLogging.logger {}
 
-    fun getAll(name: String?): List<CustomerModel> {
+    fun getAll(name: String?, pageable: Pageable): Page<CustomerModel> {
         name?.let {
-            return customerRepository.findByNameContaining(it)
+            return customerRepository.findByNameContaining(it, pageable)
         }
 
-        return customerRepository.findAll().toList()
+        return customerRepository.findAll(pageable)
     }
 
     fun createCustomer(customer: CustomerModel) {
