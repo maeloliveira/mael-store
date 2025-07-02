@@ -1,6 +1,8 @@
 package com.bookstore.mael.store.model
 
 import com.bookstore.mael.store.enum.BookStatus
+import com.bookstore.mael.store.enum.Errors
+import com.bookstore.mael.store.exception.BadRequestException
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -32,9 +34,10 @@ data class BookModel(
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     var status: BookStatus? = null
+        get() = field
         set(value) {
             if (field == BookStatus.DELETADO || field == BookStatus.CANCELADO)
-                throw Exception("Erro ao processar requisição com status: ${field}")
+                throw BadRequestException(Errors.ML102.message.format(field), Errors.ML102.code)
 
             field = value
         }
