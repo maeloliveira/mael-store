@@ -19,3 +19,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   flyway:
     schemas: mael_store
+  jackson:
+    default-property-inclusion: non_null
+
+
