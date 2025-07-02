@@ -1,7 +1,9 @@
 package com.bookstore.mael.store.service
 
 import com.bookstore.mael.store.enum.BookStatus
+import com.bookstore.mael.store.enum.Errors
 import com.bookstore.mael.store.exception.BookNotFoundException
+import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.BookModel
 import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.repository.BookRepository
@@ -20,7 +22,7 @@ class BookService(
 
     fun create(book: BookModel) {
         bookRepository.save(book)
-        logger.info {"Book ${book.name}, with id= ${book.id} was created "}
+        logger.info { "Book ${book.name}, with id= ${book.id} was created " }
     }
 
     fun findAll(pageable: Pageable): Page<BookModel> {
@@ -36,18 +38,20 @@ class BookService(
             throw BookNotFoundException(id)
         }
         bookRepository.deleteById(id)
-        logger.info{"Book id= ${id} deleted"}
+        logger.info { "Book id= ${id} deleted" }
     }
 
     fun update(book: BookModel) {
         if (!bookRepository.existsById(book.id!!)) {
-            throw BookNotFoundException(book.id!!)
+            throw NotFoundException(Errors.ML101.message.format(book.id!!), Errors.ML101.code)
         }
         bookRepository.save(book)
     }
 
     fun findById(id: Int): BookModel {
-        return bookRepository.findById(id).orElseThrow()
+        return bookRepository.findById(id).orElseThrow {
+            NotFoundException(Errors.ML101.message.format(id), Errors.ML101.code)
+        }
     }
 
     fun deleteByCustomer(customer: CustomerModel) {
@@ -56,7 +60,7 @@ class BookService(
             book.status = BookStatus.DELETADO
         }
         bookRepository.saveAll(books)
-        logger.info{"Book ${customer.name} was deleted "}
+        logger.info { "Book ${customer.name} was deleted " }
     }
 
 
