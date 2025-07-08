@@ -34,6 +34,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("mysql:mysql-connector-java:8.0.31")
 	implementation("io.github.microutils:kotlin-logging:3.0.5")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 //	implementation("org.slf4j:slf4j-simple:2.0.12")
 //	implementation ("org.flywaydb:flyway-core:9.22.3")
 	runtimeOnly("mysql:mysql-connector-java")
