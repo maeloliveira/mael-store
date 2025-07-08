@@ -6,6 +6,7 @@ import com.bookstore.mael.store.controller.response.CustomerResponse
 import com.bookstore.mael.store.extension.toCustomerModel
 import com.bookstore.mael.store.extension.toResponse
 import com.bookstore.mael.store.service.CustomerService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -26,7 +27,7 @@ class CustomerController (
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createCustomer(@RequestBody customer: PostCustomerRequest) {
+    fun createCustomer(@RequestBody @Valid customer: PostCustomerRequest) {
         customerService.createCustomer(customer.toCustomerModel())
     }
 
