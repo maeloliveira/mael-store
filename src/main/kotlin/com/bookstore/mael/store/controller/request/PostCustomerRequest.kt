@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotEmpty
 
 data class PostCustomerRequest (
 
-    @field: NotEmpty
+    @field: NotEmpty(message = "Field name can't be empty")
     var name : String,
-    @field: Email
+    @field: Email(message = "Please insert valid value at e-mail")
     var email : String,
 
 )
