@@ -26,15 +26,15 @@ repositories {
 }
 
 dependencies {
-	//#To use PostgreSQL
+//	#To use PostgreSQL
 //	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 //	implementation("org.postgresql:postgresql:42.7.2")
-
-	//#To use Mysql
+//	#To use Mysql
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("mysql:mysql-connector-java:8.0.31")
 	implementation("io.github.microutils:kotlin-logging:3.0.5")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
 //	implementation("org.slf4j:slf4j-simple:2.0.12")
 //	implementation ("org.flywaydb:flyway-core:9.22.3")
 	runtimeOnly("mysql:mysql-connector-java")
