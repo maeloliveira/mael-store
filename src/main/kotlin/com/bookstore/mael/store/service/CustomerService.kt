@@ -55,4 +55,8 @@ class CustomerService(
         logger.info { "Customer ${customer.name} was completed deleted" }
     }
 
+    fun emailAvailable(email: String): Boolean {
+       return !customerRepository.existsByEmail(email)
+    }
+
 }
