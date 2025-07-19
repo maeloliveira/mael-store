@@ -11,6 +11,6 @@ data class PostCustomerRequest (
     var name : String,
     @field: Email(message = "Please insert valid value at e-mail")
     @EmailAvailable(message = "Please verify your email because it's only use, ")
-    var email : String,
+    var email : String
 
 )
