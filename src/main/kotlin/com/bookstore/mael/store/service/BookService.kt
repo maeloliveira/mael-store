@@ -63,5 +63,9 @@ class BookService(
         logger.info { "Book ${customer.name} was deleted " }
     }
 
+    fun findAllByIds(bookId: Set<Int>): List<BookModel> {
+        return bookRepository.findAllById(bookId).toList()
+    }
+
 
 }
