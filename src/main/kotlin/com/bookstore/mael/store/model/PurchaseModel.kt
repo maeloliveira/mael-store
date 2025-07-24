@@ -26,8 +26,8 @@ data class PurchaseModel(
     @ManyToMany
     @JoinTable(name = "purchase_book",
         joinColumns = [JoinColumn(name = "purchase_id")],
-        inverseJoinColumns = [JoinColumn(name = "book_ids")])
-    val books: List<BookModel>,
+        inverseJoinColumns = [JoinColumn(name = "book_id")])
+    val books: MutableList<BookModel>,
 
     @Column(name = "nfe")
     val nfe: String? = null,

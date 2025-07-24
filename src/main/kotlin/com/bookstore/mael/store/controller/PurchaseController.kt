@@ -6,6 +6,7 @@ import com.bookstore.mael.store.service.PurchaseService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
+@RestController
 @RequestMapping("purchase")
 class PurchaseController(
     private val purchaseService: PurchaseService,
