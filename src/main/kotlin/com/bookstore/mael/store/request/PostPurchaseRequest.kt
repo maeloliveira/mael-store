@@ -12,7 +12,7 @@ data class PostPurchaseRequest(
 
     @field:NotNull
     @JsonAlias("book_ids")
-    var bookIds: Set<Int>
+    val bookIds: Set<Int>
 
 
 )
