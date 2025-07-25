@@ -27,15 +27,15 @@ data class PurchaseModel(
     @JoinTable(name = "purchase_book",
         joinColumns = [JoinColumn(name = "purchase_id")],
         inverseJoinColumns = [JoinColumn(name = "book_id")])
-    val books: MutableList<BookModel>,
+    var books: MutableList<BookModel>,
 
     @Column(name = "nfe")
-    val nfe: String? = null,
+    var nfe: String? = null,
 
     @Column(name = "price")
-    val price: BigDecimal,
+    var price: BigDecimal,
 
     @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
 )

@@ -1,5 +1,7 @@
 package com.bookstore.mael.store.controller.mapper
 
+import com.bookstore.mael.store.enum.Errors
+import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.PurchaseModel
 import com.bookstore.mael.store.request.PostPurchaseRequest
 import com.bookstore.mael.store.service.BookService
@@ -12,8 +14,12 @@ class PurchaseMapper(
     private val customerService: CustomerService
 ) {
     fun toModel(request: PostPurchaseRequest): PurchaseModel {
-        val customer = customerService.findById(request.costumerId)
-        val books = bookService.findAllByIds(request.bookIds)
+        val customer = customerService.findById(request.customerId)
+        val books = bookService.findAllByIds(request.bookIds.toSet())
+
+        if(books.size != request.bookIds.size){
+            throw NotFoundException(Errors.ML101.message.format(request.bookIds), Errors.ML101.code)
+        }
 
         return PurchaseModel(
             customer = customer,
