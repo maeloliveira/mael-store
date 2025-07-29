@@ -1,7 +1,7 @@
 package com.bookstore.mael.store.service
 
-import com.bookstore.mael.store.enum.BookStatus
-import com.bookstore.mael.store.enum.Errors
+import com.bookstore.mael.store.enums.BookStatus
+import com.bookstore.mael.store.enums.Errors
 import com.bookstore.mael.store.exception.BookNotFoundException
 import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.BookModel
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class BookService(
-    val bookRepository: BookRepository
+    private val bookRepository: BookRepository
 ) {
 
     private val logger = KotlinLogging.logger {}

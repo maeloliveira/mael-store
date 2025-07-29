@@ -1,6 +1,6 @@
 package com.bookstore.mael.store.controller.response
 
-import com.bookstore.mael.store.enum.BookStatus
+import com.bookstore.mael.store.enums.BookStatus
 import com.bookstore.mael.store.model.CustomerModel
 import java.math.BigDecimal
 

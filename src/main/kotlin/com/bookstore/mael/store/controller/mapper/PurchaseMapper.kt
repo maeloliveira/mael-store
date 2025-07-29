@@ -1,6 +1,6 @@
 package com.bookstore.mael.store.controller.mapper
 
-import com.bookstore.mael.store.enum.Errors
+import com.bookstore.mael.store.enums.Errors
 import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.PurchaseModel
 import com.bookstore.mael.store.request.PostPurchaseRequest
