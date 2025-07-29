@@ -9,8 +9,11 @@ data class PostCustomerRequest (
 
     @field: NotEmpty(message = "Field name can't be empty")
     var name : String,
+
     @field: Email(message = "Please insert valid value at e-mail")
     @EmailAvailable(message = "Please verify your email because it's only use, ")
-    var email : String
+    var email : String,
 
+    @field: NotEmpty(message = "Please insert your password")
+    var password: String
 )

@@ -1,7 +1,7 @@
 package com.bookstore.mael.store.model
 
-import com.bookstore.mael.store.enum.BookStatus
-import com.bookstore.mael.store.enum.Errors
+import com.bookstore.mael.store.enums.BookStatus
+import com.bookstore.mael.store.enums.Errors
 import com.bookstore.mael.store.exception.BadRequestException
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

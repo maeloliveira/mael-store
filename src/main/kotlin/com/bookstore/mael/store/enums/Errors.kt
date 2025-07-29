@@ -1,4 +1,4 @@
-package com.bookstore.mael.store.enum
+package com.bookstore.mael.store.enums
 
 enum class Errors (val code: String, val message: String ){
     ML001("ML-001","Invalid arguments "),

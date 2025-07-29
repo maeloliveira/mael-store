@@ -1,4 +1,4 @@
-package com.bookstore.mael.store.enum
+package com.bookstore.mael.store.enums
 
 enum class BookStatus {
 

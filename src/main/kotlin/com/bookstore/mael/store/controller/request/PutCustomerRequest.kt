@@ -1,6 +1,6 @@
 package com.bookstore.mael.store.controller.request
 
-import com.bookstore.mael.store.enum.CustomerStatus
+import com.bookstore.mael.store.enums.CustomerStatus
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 

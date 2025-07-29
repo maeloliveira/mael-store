@@ -2,7 +2,7 @@ package com.bookstore.mael.store.exception
 
 import com.bookstore.mael.store.controller.request.ErrorResponse
 import com.bookstore.mael.store.controller.response.FieldErrorResponse
-import com.bookstore.mael.store.enum.Errors
+import com.bookstore.mael.store.enums.Errors
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
