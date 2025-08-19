@@ -7,6 +7,7 @@ import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.repository.CustomerRepository
 import mu.KotlinLogging
+import org.springframework.context.annotation.Lazy
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service
 @Service
 class CustomerService(
     private val customerRepository: CustomerRepository,
+    @Lazy
     private val bookService: BookService,
     private val bCrypt: BCryptPasswordEncoder
 ) {
