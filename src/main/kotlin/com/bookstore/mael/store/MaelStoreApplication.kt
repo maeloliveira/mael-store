@@ -11,3 +11,4 @@ class MaelStoreApplication
 fun main(args: Array<String>) {
 	runApplication<MaelStoreApplication>(*args)
 }
+

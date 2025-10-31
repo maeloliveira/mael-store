@@ -10,7 +10,7 @@ import mu.KotlinLogging
 import org.springframework.context.annotation.Lazy
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,7 +18,7 @@ class CustomerService(
     private val customerRepository: CustomerRepository,
     @Lazy
     private val bookService: BookService,
-    private val bCrypt: BCryptPasswordEncoder
+//    private val bCrypt: BCryptPasswordEncoder
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -35,7 +35,7 @@ class CustomerService(
 
         val customerCopy = customer.copy(
             roles = setOf(Profile.CUSTOMER),
-            password = bCrypt.encode(customer.password)
+//            password = bCrypt.encode(customer.password)
         )
         customerRepository.save(customerCopy)
     }
@@ -51,7 +51,6 @@ class CustomerService(
             throw NotFoundException(Errors.ML202.message.format(customer.id!!), Errors.ML202.code)
 
         }
-
         customerRepository.save(customer)
     }
 
