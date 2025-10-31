@@ -32,6 +32,9 @@ class BookService(
     fun findActives(pageable: Pageable): Page<BookModel> {
         return bookRepository.findByStatus(BookStatus.ATIVO, pageable)
     }
+    fun findNotActives(pageable: Pageable): Page<BookModel>{
+        return bookRepository.findByStatus(BookStatus.CANCELADO, pageable)
+    }
 
     fun deleteBook(id: Int) {
         if (!bookRepository.existsById(id)) {

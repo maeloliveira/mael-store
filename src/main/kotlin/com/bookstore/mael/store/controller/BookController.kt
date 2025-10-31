@@ -37,16 +37,20 @@ class BookController(
     }
 
     @GetMapping
-    fun findAll(@PageableDefault(page= 0, size=10) pageable : Pageable): Page<BookResponse> =
+    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> =
         bookService.findAll(pageable).map { it.toResponse() }
 
+    @GetMapping("/canceled")
+    private fun notAllBooks(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> =
+        bookService.findNotActives(pageable).map { it.toResponse() }
+
     @GetMapping("{id}")
-    fun getBookById(@PathVariable id: Int): BookResponse{
+    fun getBookById(@PathVariable id: Int): BookResponse {
         return bookService.findById(id).toResponse()
     }
 
     @GetMapping("/active")
-    fun findActives(@PageableDefault(page=0, size=10) pageable: Pageable): Page<BookResponse> =
+    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> =
         bookService.findActives(pageable).map { it.toResponse() }
 
     @DeleteMapping("/{id}")
