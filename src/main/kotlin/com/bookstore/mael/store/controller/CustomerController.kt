@@ -20,8 +20,6 @@ class CustomerController (
     val customerService : CustomerService
 ) {
 
-
-
     @GetMapping
     fun getAll(@RequestParam name : String?, @PageableDefault(page = 0, size = 10) pageable: Pageable ) : Page<CustomerResponse>{
         return customerService.getAll(name, pageable).map { it.toResponse()}

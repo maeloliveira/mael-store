@@ -37,7 +37,7 @@ dependencies {
 //	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
 //	implementation("org.slf4j:slf4j-simple:2.0.12")
-//	implementation ("org.flywaydb:flyway-core:9.22.3")
+	implementation ("org.flywaydb:flyway-core:9.22.3")
 	runtimeOnly("mysql:mysql-connector-java")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -46,7 +46,8 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+	testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.13.7")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
