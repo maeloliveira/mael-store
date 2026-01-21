@@ -1,13 +1,16 @@
 package com.bookstore.mael.store.service
 
 import com.bookstore.mael.store.exception.BookNotFoundException
+import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.BookModel
 import com.bookstore.mael.store.repository.BookRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class BookServiceTest {
 
@@ -16,7 +19,7 @@ class BookServiceTest {
     private val book = mockk<BookModel>(relaxed = true)
 
     @Test
-    fun `should creat book with sucess`() {
+    fun `should create book with success`() {
 
         every { bookRepository.save(book) } returns book
 
@@ -27,7 +30,7 @@ class BookServiceTest {
     }
 
     @Test
-    fun `deve lancar BookNotFoundException quando id nao existir`() {
+    fun `should be BookNotFoundException when id not exist`() {
         val id = 99
 
         every { bookRepository.existsById(id) } returns false
@@ -40,7 +43,33 @@ class BookServiceTest {
     }
 
     @Test
-    fun update() {
+    fun `should throw NotFoundException when update and id not exist`() {
+
+        val id = 43554
+
+        every { book.id } returns id
+        every { bookRepository.existsById(id) } returns false
+
+        assertThrows(NotFoundException::class.java) {
+            bookService.update(book)
+        }
+
+        verify(exactly = 0) {  bookRepository.save(any())}
+
+    }
+
+    @Test
+    fun `should update book with success`() {
+        val id = 431
+
+        every { book.id } returns id
+        every { bookRepository.existsById(id) } returns true
+        every { bookRepository.save(book) } returns book
+
+        bookService.update(book)
+
+        verify(exactly = 0) {  bookRepository.save(book)}
+
     }
 
     @Test
