@@ -4,6 +4,7 @@ import com.bookstore.mael.store.enums.BookStatus
 import com.bookstore.mael.store.exception.BookNotFoundException
 import com.bookstore.mael.store.exception.NotFoundException
 import com.bookstore.mael.store.model.BookModel
+import com.bookstore.mael.store.model.CustomerModel
 import com.bookstore.mael.store.repository.BookRepository
 import io.mockk.every
 import io.mockk.mockk
@@ -56,7 +57,7 @@ class BookServiceTest {
             bookService.update(book)
         }
 
-        verify(exactly = 0) {  bookRepository.save(any())}
+        verify(exactly = 0) { bookRepository.save(any()) }
 
     }
 
@@ -70,7 +71,7 @@ class BookServiceTest {
 
         bookService.update(book)
 
-        verify(exactly = 0) {  bookRepository.save(book)}
+        verify(exactly = 1) { bookRepository.save(book) }
 
     }
 
@@ -85,14 +86,13 @@ class BookServiceTest {
 
         assertEquals(page, result)
 
-        verify (exactly = 1){ bookRepository.findAll(pageable) }
+        verify(exactly = 1) { bookRepository.findAll(pageable) }
     }
 
     @Test
     fun `should find by actives books`() {
         val pageable = mockk<Pageable>()
         val page = PageImpl(listOf(book))
-        val bookStatus = "ATIVO"
 
         every { bookRepository.findByStatus(BookStatus.ATIVO, pageable) } returns page
 
@@ -100,7 +100,7 @@ class BookServiceTest {
 
         assertEquals(page, result)
 
-        verify (exactly = 1){ bookRepository.findByStatus(BookStatus.ATIVO, pageable) }
+        verify(exactly = 1) { bookRepository.findByStatus(BookStatus.ATIVO, pageable) }
     }
 
 
@@ -118,9 +118,8 @@ class BookServiceTest {
     }
 
 
-
     @Test
-    fun `should success delete book by id`(){
+    fun `should success delete book by id`() {
         val id = 1
 
         every { bookRepository.existsById(id) } returns true
@@ -131,22 +130,74 @@ class BookServiceTest {
         verify(exactly = 1) { bookRepository.deleteById(id) }
     }
 
-    fun `should success delete book by costumer`(){
-        val id = 1
-
-        every { bookRepository.findByCustomer(id) } returns true
-        every { bookRepository.findByCustomer(id) } returns Unit
-
-        bookService.deleteBook(id)
-
-        verify(exactly = 1) { bookRepository.deleteById(id) }
-    }
     @Test
-    fun findAllByIds() {
+    fun `should success delete book by costumer`() {
+        val customer = mockk<CustomerModel>(relaxed = true)
+        val book1 = mockk<BookModel>(relaxed = true)
+        val book2 = mockk<BookModel>(relaxed = true)
+        val books = listOf(book1, book2)
+
+        every { bookRepository.findByCustomer(customer) } returns books
+        every { bookRepository.saveAll(books) } returns books
+
+        bookService.deleteByCustomer(customer)
+
+        verify(exactly = 1) { bookRepository.findByCustomer(customer) }
+        verify { book1.status = BookStatus.DELETADO }
+        verify { book2.status = BookStatus.DELETADO }
+        verify(exactly = 1) { bookRepository.saveAll(books) }
     }
 
     @Test
-    fun purchase() {
+    fun `should find all book by Ids`() {
+        val ids = setOf(1, 2)
+        val iterable = listOf(book)
+
+        every { bookRepository.findAllById(ids) } returns iterable
+
+        val result = bookService.findAllByIds(ids)
+
+        assertEquals(iterable, result)
+        verify(exactly = 1) { bookRepository.findAllById(ids) }
     }
 
+
+    @Test
+    fun `should return empty list when repository returns empty iterable`() {
+        val ids = setOf(3)
+
+        every { bookRepository.findAllById(ids) } returns emptyList()
+
+        val result = bookService.findAllByIds(ids)
+
+        assertEquals(0, result.size)
+        verify(exactly = 1) { bookRepository.findAllById(ids) }
+    }
+
+
+    @Test
+    fun `should mark all books as VENDIDO and call saveAll`() {
+        val book1 = mockk<BookModel>(relaxed = true)
+        val book2 = mockk<BookModel>(relaxed = true)
+        val books = mutableListOf(book1, book2)
+
+        every { bookRepository.saveAll(books) } returns books
+
+        bookService.purchase(books)
+
+        verify(exactly = 1) { book1.status = BookStatus.VENDIDO }
+        verify(exactly = 1) { book2.status = BookStatus.VENDIDO }
+        verify(exactly = 1) { bookRepository.saveAll(books) }
+    }
+
+    @Test
+    fun `should call saveAll with empty list when no books`() {
+        val emptyBooks = mutableListOf<BookModel>()
+
+        every { bookRepository.saveAll(emptyBooks) } returns emptyBooks
+
+        bookService.purchase(emptyBooks)
+
+        verify(exactly = 1) { bookRepository.saveAll(emptyBooks) }
+    }
 }
