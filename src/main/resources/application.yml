@@ -2,24 +2,24 @@ spring:
   application:
     name: maelstore
   ##to use PostgreSQL
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/mael-store
-#    user: postgres
-#    password: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mael-store
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
 
     ##to use MySql
-  datasource:
-    url: jdbc:mysql://localhost:3306/mael_store?createDatabaseIfNotExist=true
-    username: root
-    password: 12345
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mael_store?createDatabaseIfNotExist=true
+#    username: root
+#    password: 12345
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   flyway:
-    schemas: mael_store
+    baseline-on-migrate: true
+    schemas: public
   jackson:
     default-property-inclusion: non_null
-
-

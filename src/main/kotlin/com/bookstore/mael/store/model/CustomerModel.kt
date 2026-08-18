@@ -13,19 +13,18 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
-import org.hibernate.query.sqm.FetchClauseType
 
 @Entity(name = "customer")
-data class CustomerModel (
+class CustomerModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id : Int? = null,
+    var id: Int? = null,
 
     @Column(name = "name")
-    var name : String,
+    var name: String,
 
     @Column(name = "email")
-    var email : String,
+    var email: String,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
