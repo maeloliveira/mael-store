@@ -32,12 +32,9 @@ class CustomerService(
     }
 
     fun createCustomer(customer: CustomerModel) {
-
-        val customerCopy = customer.copy(
-            roles = setOf(Profile.CUSTOMER),
-//            password = bCrypt.encode(customer.password)
-        )
-        customerRepository.save(customerCopy)
+        customer.roles = setOf(Profile.CUSTOMER)
+//        customer.password = bCrypt.encode(customer.password)
+        customerRepository.save(customer)
     }
 
     fun findById(id: Int): CustomerModel {

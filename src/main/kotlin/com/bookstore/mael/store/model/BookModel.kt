@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
 
 @Entity(name = "book")
-data class BookModel(
+class BookModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null,

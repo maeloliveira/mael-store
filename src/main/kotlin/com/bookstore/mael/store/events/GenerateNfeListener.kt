@@ -14,8 +14,9 @@ class GenerateNfeListener (
     @Async
     @EventListener
     fun listen (purchaseEvent: PurchaseEvent) {
-        var nfe = UUID.randomUUID().toString()
-        var purchaseModel = purchaseEvent.purchaseModel.copy(nfe = nfe)
+        val nfe = UUID.randomUUID().toString()
+        val purchaseModel = purchaseEvent.purchaseModel
+        purchaseModel.nfe = nfe
         purchaseService.update(purchaseModel)
     }
 }
