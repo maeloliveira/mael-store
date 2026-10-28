@@ -57,7 +57,7 @@ class CustomerService(
         bookService.deleteByCustomer(customer)
         customer.status = CustomerStatus.INATIVO
         customerRepository.save(customer)
-        logger.info { "Customer ${customer.name} was completed deleted" }
+        logger.info { "Customer ${customer.name} was marked as inactive (status=INATIVO) after deleting associated books" }
     }
 
     fun emailAvailable(email: String): Boolean {
